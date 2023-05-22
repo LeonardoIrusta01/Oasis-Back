@@ -2,7 +2,7 @@ import 'dotenv/config'
 import expres from "express";
 import morgan from "morgan";
 import cors from "cors";
-import { connection } from "./db";
+import { connection } from "./Persistence/db";
 
 const app = expres();
 const port = 3000;
