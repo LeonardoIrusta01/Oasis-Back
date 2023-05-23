@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
-import { User, Product } from "../Models/index";
+import { User, Product, Type } from "../Models/index";
 
 const { DB_PASSWORD, DB_USERNAME, DB_HOST, DB_NAME } = process.env;
 
@@ -9,8 +9,10 @@ export const sequelize = new Sequelize({
   username: DB_USERNAME,
   password: DB_PASSWORD,
   host: DB_HOST,
-  models: [User, Product],
+  models: [User, Product, Type],
 });
+
+Type.hasMany(Product, { sourceKey: "id" });
 
 export const connection = async () => {
   try {
