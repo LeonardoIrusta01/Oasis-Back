@@ -1,4 +1,3 @@
-import { log } from "console";
 import { Product } from "../../Models/product";
 import { MapProduct } from "../DTO/productDTO";
 

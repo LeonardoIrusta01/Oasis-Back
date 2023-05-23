@@ -33,7 +33,7 @@ export class User extends Model{
     @Column({
         type: DataType.BOOLEAN
     })
-    rol!: boolean
+    admin!: boolean
 
     @Column({
         type: DataType.BIGINT
