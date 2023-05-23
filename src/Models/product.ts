@@ -27,11 +27,6 @@ export class Product extends Model {
   @Column({
     type: DataType.ENUM('Diabetic', 'Veggetariano'),
   })
-  type!: string;
-
-  @Column({
-    type: DataType.STRING,
-  })
   category!: string;
 
   @Column({
