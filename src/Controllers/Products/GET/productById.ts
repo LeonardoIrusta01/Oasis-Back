@@ -4,7 +4,7 @@ import { ProductDao } from "../../../Persistence/DAO/productDAO";
 
 const productDao = new ProductDao();
 
-export const GetProductById: RequestHandler = async (req, res, next) => {
+export const getProductById: RequestHandler = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (id) {
