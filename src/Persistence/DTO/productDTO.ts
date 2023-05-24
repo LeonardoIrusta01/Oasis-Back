@@ -7,13 +7,7 @@ export interface MapProduct {
   discount: boolean;
   active: boolean;
   stock: boolean;
+  type: {
+    id: number;
+  };
 }
-
-/* A corregir */
-// export interface MapQuery {
-//   limit: number;
-// }
-
-// export interface MapParams {
-//   id: string;
-// }

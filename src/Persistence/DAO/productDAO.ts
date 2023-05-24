@@ -1,3 +1,4 @@
+import { Type } from "../../Models";
 import { Product } from "../../Models/product";
 import { MapProduct } from "../DTO/productDTO";
 
@@ -6,7 +7,19 @@ export class ProductDao {
 
   async getProduct() {
     try {
-      const getProduct: Product[] = await Product.findAll();
+      const getProduct: Product[] = await Product.findAll({
+        attributes: [
+          "name",
+          "price",
+          "image",
+          "description",
+          "category",
+          "discount",
+          "active",
+          "stock",
+        ],
+        include: [Type],
+      });
 
       return getProduct;
     } catch (error: any) {
@@ -16,7 +29,19 @@ export class ProductDao {
 
   async getProductById(id: string) {
     try {
-      const getProductById: Product | null = await Product.findByPk(id);
+      const getProductById: Product | null = await Product.findByPk(id, {
+        attributes: [
+          "name",
+          "price",
+          "image",
+          "description",
+          "category",
+          "discount",
+          "active",
+          "stock",
+        ],
+        include: [Type],
+      });
 
       return getProductById;
     } catch (error: any) {
@@ -35,6 +60,7 @@ export class ProductDao {
         discount,
         active,
         stock,
+        type,
       } = body;
 
       const product = await Product.create({
@@ -46,6 +72,7 @@ export class ProductDao {
         discount,
         active,
         stock,
+        idType: type.id,
       });
 
       return product;
@@ -56,7 +83,32 @@ export class ProductDao {
 
   async updateProduct(id: string, body: MapProduct) {
     try {
-      const product = await Product.update(body, { where: { id } });
+      const {
+        name,
+        price,
+        image,
+        description,
+        category,
+        discount,
+        active,
+        stock,
+        type,
+      } = body;
+
+      const product = await Product.update(
+        {
+          name,
+          price,
+          image,
+          description,
+          category,
+          discount,
+          active,
+          stock,
+          idType: type.id,
+        },
+        { where: { id } }
+      );
 
       return product;
     } catch (error: any) {

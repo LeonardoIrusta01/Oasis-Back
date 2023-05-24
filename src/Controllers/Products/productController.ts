@@ -1,6 +1,6 @@
-import { GetAllProduct } from "./GET/getAllProduct";
-import { GetProductById } from "./GET/productById";
-import { CreateProduct } from "./POST/createProduct";
-import { UpdateProduct } from "./PUT/updateProduct";
+import { getAllProduct } from "./GET/getAllProduct";
+import { getProductById } from "./GET/productById";
+import { createProduct } from "./POST/createProduct";
+import { updateProduct } from "./PUT/updateProduct";
 
-export { GetAllProduct, GetProductById, CreateProduct, UpdateProduct };
+export { getAllProduct, getProductById, createProduct, updateProduct };

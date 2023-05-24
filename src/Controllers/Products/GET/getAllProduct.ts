@@ -4,7 +4,7 @@ import { ProductDao } from "../../../Persistence/DAO/productDAO";
 
 const productDao = new ProductDao();
 
-export const GetAllProduct: RequestHandler = async (req, res, next) => {
+export const getAllProduct: RequestHandler = async (req, res, next) => {
   try {
     const { limit } = req.query;
     const product: [] = await productDao.getProduct();

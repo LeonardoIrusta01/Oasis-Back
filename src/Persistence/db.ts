@@ -12,7 +12,8 @@ export const sequelize = new Sequelize({
   models: [User, Product, Type],
 });
 
-Type.hasMany(Product, { sourceKey: "id" });
+Type.hasMany(Product, { foreignKey: "idType" });
+Product.belongsTo(Type, { foreignKey: "idType" });
 
 export const connection = async () => {
   try {
