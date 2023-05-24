@@ -83,7 +83,32 @@ export class ProductDao {
 
   async updateProduct(id: string, body: MapProduct) {
     try {
-      const product = await Product.update(body, { where: { id } });
+      const {
+        name,
+        price,
+        image,
+        description,
+        category,
+        discount,
+        active,
+        stock,
+        type,
+      } = body;
+
+      const product = await Product.update(
+        {
+          name,
+          price,
+          image,
+          description,
+          category,
+          discount,
+          active,
+          stock,
+          idType: type.id,
+        },
+        { where: { id } }
+      );
 
       return product;
     } catch (error: any) {
