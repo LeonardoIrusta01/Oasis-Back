@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize-typescript";
 import { User, Product, Category } from "../Models/index";
+import { generate } from "../scripts/chargeProductDB";
 
 const { DB_PASSWORD, DB_USERNAME, DB_HOST, DB_NAME } = process.env;
 
@@ -18,6 +19,7 @@ Product.belongsTo(Category, { foreignKey: "idCategory" });
 export const connection = async () => {
   try {
     await sequelize.sync();
+    await generate()
   } catch (error) {
     console.log(error);
   }
