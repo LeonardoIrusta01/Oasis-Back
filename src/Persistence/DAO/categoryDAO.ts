@@ -10,7 +10,7 @@ export class CategoryDao {
 
       return category;
     } catch (error: any) {
-      return error.message;
+      throw new Error(error.message);
     }
   }
 

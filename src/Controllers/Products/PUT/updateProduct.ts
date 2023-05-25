@@ -9,10 +9,10 @@ export const updateProduct: RequestHandler = async (req, res, next) => {
     const product = await productDao.updateProduct(req.params.id, req.body);
 
     return res.status(200).send({
-      status: "Succes",
+      status: "Success",
       payload: `Updated Product where ID is ${req.params.id}`,
     });
-  } catch (error) {
-    return res.status(404).send({ status: "Rejected", payload: error });
+  } catch (error: any) {
+    return res.status(400).send({ status: "Rejected", payload: error.message });
   }
 };

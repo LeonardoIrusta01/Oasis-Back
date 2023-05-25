@@ -10,8 +10,8 @@ export const createCategory: RequestHandler = async (req, res, next) => {
 
     return res
       .status(201)
-      .send({ status: "Succes", payload: category.dataValues });
-  } catch (error) {
-    return res.status(404).send({ status: "Rejected", payload: error });
+      .send({ status: "Success", payload: category.dataValues });
+  } catch (error: any) {
+    return res.status(400).send({ status: "Rejected", payload: error.message });
   }
 };
