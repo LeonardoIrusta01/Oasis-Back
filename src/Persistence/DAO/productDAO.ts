@@ -8,7 +8,6 @@ export class ProductDao {
 
   async getProduct(limit?: number, search?: string | any, page?: number) {
     try {
-      console.log(page);
       if (typeof page != "number" || page < 1) {
         throw new Error("Page must be a number and greater than 0");
       }
