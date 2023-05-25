@@ -1,4 +1,4 @@
-import { Type } from "../../Models";
+import { Category } from "../../Models";
 import { Product } from "../../Models/product";
 import { MapProduct } from "../DTO/productDTO";
 
@@ -13,12 +13,11 @@ export class ProductDao {
           "price",
           "image",
           "description",
-          "category",
           "discount",
           "active",
           "stock",
         ],
-        include: [Type],
+        include: [Category],
       });
 
       return getProduct;
@@ -35,12 +34,11 @@ export class ProductDao {
           "price",
           "image",
           "description",
-          "category",
           "discount",
           "active",
           "stock",
         ],
-        include: [Type],
+        include: [Category],
       });
 
       return getProductById;
@@ -56,11 +54,10 @@ export class ProductDao {
         price,
         image,
         description,
-        category,
         discount,
         active,
         stock,
-        type,
+        category,
       } = body;
 
       const product = await Product.create({
@@ -68,11 +65,10 @@ export class ProductDao {
         price,
         image,
         description,
-        category,
         discount,
         active,
         stock,
-        idType: type.id,
+        idCategory: category.id,
       });
 
       return product;
@@ -88,11 +84,10 @@ export class ProductDao {
         price,
         image,
         description,
-        category,
         discount,
         active,
         stock,
-        type,
+        category,
       } = body;
 
       const product = await Product.update(
@@ -101,11 +96,10 @@ export class ProductDao {
           price,
           image,
           description,
-          category,
           discount,
           active,
           stock,
-          idType: type.id,
+          idCategory: category.id,
         },
         { where: { id } }
       );

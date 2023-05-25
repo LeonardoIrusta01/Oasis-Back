@@ -1,5 +1,5 @@
 import { User } from "./user";
 import { Product } from "./product";
-import { Type } from "./type";
+import { Category } from "./category";
 
-export { User, Product, Type };
+export { User, Product, Category };
