@@ -5,6 +5,7 @@ import morgan from "morgan";
 import cors from "cors";
 import { connection } from "./Persistence/db";
 
+
 /* Import Configurations */
 import Index from "./Routes/index";
 
