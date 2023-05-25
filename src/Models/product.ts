@@ -1,5 +1,4 @@
 import { Table, Model, Column, DataType } from "sequelize-typescript";
-import { Type } from "./type";
 
 @Table({
   tableName: "products",
@@ -26,11 +25,6 @@ export class Product extends Model {
   description!: string;
 
   @Column({
-    type: DataType.ENUM("Diabetic", "Veggetariano"),
-  })
-  category!: string;
-
-  @Column({
     type: DataType.BOOLEAN,
   })
   discount!: boolean;
@@ -48,5 +42,5 @@ export class Product extends Model {
   @Column({
     type: DataType.INTEGER,
   })
-  idType!: number;
+  idCategory!: number;
 }
