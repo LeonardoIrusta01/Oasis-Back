@@ -1,28 +1,83 @@
 import { Category } from "../../Models";
 import { Product } from "../../Models/product";
 import { MapProduct } from "../DTO/productDTO";
+import { Op } from "sequelize";
 
 export class ProductDao {
   constructor() {}
 
-  async getProduct() {
+  async getProduct(limit?: number, search?: string | any, page?: number) {
     try {
-      const getProduct: Product[] = await Product.findAll({
-        attributes: [
-          "name",
-          "price",
-          "image",
-          "description",
-          "discount",
-          "active",
-          "stock",
-        ],
-        include: [Category],
-      });
+      if (typeof page != "number" || page < 1) {
+        throw new Error("Page must be a number and greater than 0");
+      }
+      if (!search && !limit && !page) {
+        const getProduct: Product[] = await Product.findAll({
+          offset: 0,
+          limit: 10,
+          order: [["name", "ASC"]],
+          attributes: [
+            "id",
+            "name",
+            "price",
+            "image",
+            "description",
+            "discount",
+            "active",
+            "stock",
+          ],
+          include: [Category],
+        });
 
-      return getProduct;
+        return getProduct;
+      }
+      if (search) {
+        const upperSearch: string =
+          search.charAt(0).toUpperCase() + search.slice(1);
+        const getProduct: Product[] = await Product.findAll({
+          attributes: [
+            "id",
+            "name",
+            "price",
+            "image",
+            "description",
+            "discount",
+            "active",
+            "stock",
+          ],
+          include: [Category],
+          where: {
+            name: {
+              [Op.like]: "%" + upperSearch + "%",
+            },
+          },
+        });
+
+        return getProduct;
+      }
+
+      if (page && limit) {
+        const getProduct = await Product.findAll({
+          offset: (page - 1) * limit,
+          limit: limit,
+          order: [["name", "ASC"]],
+          attributes: [
+            "id",
+            "name",
+            "price",
+            "image",
+            "description",
+            "discount",
+            "active",
+            "stock",
+          ],
+          include: [Category],
+        });
+
+        return getProduct;
+      }
     } catch (error: any) {
-      return error.message;
+      throw new Error(error.message);
     }
   }
 
@@ -43,7 +98,7 @@ export class ProductDao {
 
       return getProductById;
     } catch (error: any) {
-      return error.message;
+      throw new Error(error.message);
     }
   }
 
@@ -57,7 +112,7 @@ export class ProductDao {
         discount,
         active,
         stock,
-        category,
+        categoryId,
       } = body;
 
       const product = await Product.create({
@@ -68,7 +123,7 @@ export class ProductDao {
         discount,
         active,
         stock,
-        idCategory: category.id,
+        idCategory: categoryId,
       });
 
       return product;
@@ -87,7 +142,7 @@ export class ProductDao {
         discount,
         active,
         stock,
-        category,
+        categoryId,
       } = body;
 
       const product = await Product.update(
@@ -99,7 +154,7 @@ export class ProductDao {
           discount,
           active,
           stock,
-          idCategory: category.id,
+          idCategory: categoryId,
         },
         { where: { id } }
       );

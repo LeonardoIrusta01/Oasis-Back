@@ -1,23 +1,24 @@
 import { RequestHandler } from "express";
 
 import { ProductDao } from "../../../Persistence/DAO/productDAO";
+import { Product } from "../../../Models";
 
 const productDao = new ProductDao();
 
 export const getAllProduct: RequestHandler = async (req, res, next) => {
   try {
-    const { limit } = req.query;
-    const product: [] = await productDao.getProduct();
-    if (limit) {
-      const parsedLimit: number = Number(limit);
+    const { limit, search, page } = req.query;
+    const parsedLimit: number = Number(limit);
+    const parsedPage: number = Number(page);
 
-      return res
-        .status(200)
-        .send({ status: "Succes", payload: product.slice(0, parsedLimit) });
-    }
+    const product: Product[] | undefined = await productDao.getProduct(
+      parsedLimit,
+      search,
+      parsedPage
+    );
 
-    return res.status(200).send({ status: "Succes", payload: product });
-  } catch (error) {
-    return res.status(404).send({ status: "Rejected", payload: error });
+    return res.status(200).send({ status: "Success", payload: product });
+  } catch (error: any) {
+    return res.status(400).send({ status: "Rejected", payload: error.message });
   }
 };

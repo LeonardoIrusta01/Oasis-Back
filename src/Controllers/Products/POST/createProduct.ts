@@ -10,8 +10,8 @@ export const createProduct: RequestHandler = async (req, res, next) => {
 
     return res
       .status(201)
-      .send({ status: "Succes", payload: product.dataValues });
-  } catch (error) {
-    return res.status(404).send({ status: "Rejected", payload: error });
+      .send({ status: "Success", payload: product.dataValues });
+  } catch (error: any) {
+    return res.status(400).send({ status: "Rejected", payload: error.message });
   }
 };
