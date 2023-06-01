@@ -4,7 +4,9 @@ import expres from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { connection } from "./Persistence/db";
-
+import swaggerJsDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+import { options } from "./utils/swagger";
 
 /* Import Configurations */
 import Index from "./Routes/index";
@@ -15,6 +17,8 @@ const port = 3001;
 
 app.use(cors());
 app.use(morgan("dev"));
+
+const swaggerSpec = swaggerJsDoc(options);
 
 /* Middlewares */
 app.use(expres.json({ limit: "50mb" }));
@@ -32,6 +36,7 @@ app.use((req, res, next) => {
 
 /* Routes */
 app.use("/api", Index);
+app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 /* DB connection */
 connection();
