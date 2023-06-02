@@ -1,5 +1,6 @@
 import { User } from "../../Models";
 import { MapUser } from "../DTO/userDTO";
+import bcrypt from 'bcrypt'
 
 
 export class UserDao {
@@ -17,7 +18,16 @@ export class UserDao {
     async getById(id: string) {
         try {
             const user: User | null = await User.findByPk(id)
-            return user
+            return user?.dataValues
+        } catch (error: any) {
+            return error.message
+        }
+    }
+
+    async getByEmail(email: string) {
+        try {
+            const user: User | null = await User.findOne({where: {email}})
+            return user?.dataValues
         } catch (error: any) {
             return error.message
         }
@@ -26,7 +36,8 @@ export class UserDao {
     async createUser(body: MapUser) {
         try {
             const { firstName = "", lastName = "", email = "", cellphone = 0, admin = false, dni = 0, password = "" } = body
-            const user: User | null = await User.create({firstName, lastName, email, cellphone, admin, dni, password})
+            const hashedPassword = bcrypt.hashSync(password, 16)
+            const user: User | null = await User.create({firstName, lastName, email, cellphone, admin, dni, password: hashedPassword})
             return user
         } catch (error:any) {
             return error.message
