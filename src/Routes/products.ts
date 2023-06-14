@@ -91,6 +91,14 @@ const router: Router = Router();
  *      example: 1
  *      schema:
  *        type: integer
+ *    
+ *    filterQuery:
+ *      name: filter
+ *      in: query
+ *      description: "results"
+ *      example: 1
+ *      schema:
+ *        type: string
  */
 
 /**
@@ -109,6 +117,7 @@ const router: Router = Router();
  *    parameters:
  *      - $ref: '#/components/parameters/limitQuery'
  *      - $ref: '#/components/parameters/pageQuery'
+ *      - $ref: '#/components/parameters/filterQuery'
  *    responses:
  *      200:
  *        description: The List of Products

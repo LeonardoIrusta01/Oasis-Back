@@ -1,17 +1,23 @@
 import { Category } from "../../Models";
 import { Product } from "../../Models/product";
 import { MapProduct } from "../DTO/productDTO";
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 
 export class ProductDao {
   constructor() {}
 
-  async getProduct(limit?: number, search?: string | any, page?: number) {
+  async getProduct(
+    limit?: number,
+    search?: string | any,
+    page?: number,
+    filter?: string | any
+  ) {
     try {
       if (typeof page != "number" || page < 1) {
         throw new Error("Page must be a number and greater than 0");
       }
-      if (!search && !limit && !page) {
+
+      if (!search && !limit && !page && !filter) {
         const getProduct: Product[] = await Product.findAll({
           offset: 0,
           limit: 10,
@@ -31,6 +37,35 @@ export class ProductDao {
 
         return getProduct;
       }
+
+      if (filter) {
+        const getProduct: Product[] = await Product.findAll({
+          offset: 0,
+          limit: 10,
+          order: [["name", "ASC"]],
+          attributes: [
+            "id",
+            "name",
+            "price",
+            "image",
+            "description",
+            "discount",
+            "active",
+            "stock",
+          ],
+          include: {
+            model: Category,
+            where: {
+              name: {
+                [Op.like]: "%" + filter + "%",
+              },
+            },
+          },
+        });
+
+        return getProduct;
+      }
+
       if (search) {
         const upperSearch: string =
           search.charAt(0).toUpperCase() + search.slice(1);
