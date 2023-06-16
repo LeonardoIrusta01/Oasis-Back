@@ -43,7 +43,7 @@ export class ProductDao {
         const getProduct: Product[] = await Product.findAll({
           offset: 0,
           limit: 10,
-          order: [["name", order]],
+          order: [["price", order]],
           attributes: [
             "id",
             "name",
@@ -71,7 +71,7 @@ export class ProductDao {
         const getProduct: Product[] = await Product.findAll({
           offset: 0,
           limit: 10,
-          order: [["name", order]],
+          order: [["price", order]],
           attributes: [
             "id",
             "name",
