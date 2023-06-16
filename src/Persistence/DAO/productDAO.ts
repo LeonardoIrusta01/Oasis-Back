@@ -1,7 +1,7 @@
 import { Category } from "../../Models";
 import { Product } from "../../Models/product";
 import { MapProduct } from "../DTO/productDTO";
-import { Op, where } from "sequelize";
+import { Op } from "sequelize";
 
 export class ProductDao {
   constructor() {}
@@ -10,18 +10,68 @@ export class ProductDao {
     limit?: number,
     search?: string | any,
     page?: number,
-    filter?: string | any
+    filter?: string | any,
+    order?: string | any
   ) {
     try {
       if (typeof page != "number" || page < 1) {
         throw new Error("Page must be a number and greater than 0");
       }
 
-      if (!search && !limit && !page && !filter) {
+      if (!search && !limit && !page && !filter && !order) {
         const getProduct: Product[] = await Product.findAll({
           offset: 0,
           limit: 10,
           order: [["name", "ASC"]],
+          attributes: [
+            "id",
+            "name",
+            "price",
+            "image",
+            "description",
+            "discount",
+            "active",
+            "stock",
+          ],
+          include: [Category],
+        });
+
+        return getProduct;
+      }
+
+      if (filter && order) {
+        const getProduct: Product[] = await Product.findAll({
+          offset: 0,
+          limit: 10,
+          order: [["price", order]],
+          attributes: [
+            "id",
+            "name",
+            "price",
+            "image",
+            "description",
+            "discount",
+            "active",
+            "stock",
+          ],
+          include: {
+            model: Category,
+            where: {
+              name: {
+                [Op.like]: "%" + filter + "%",
+              },
+            },
+          },
+        });
+
+        return getProduct;
+      }
+
+      if (order) {
+        const getProduct: Product[] = await Product.findAll({
+          offset: 0,
+          limit: 10,
+          order: [["price", order]],
           attributes: [
             "id",
             "name",
