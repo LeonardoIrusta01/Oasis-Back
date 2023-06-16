@@ -15,8 +15,7 @@ export const getAllProduct: RequestHandler = async (req, res, next) => {
       parsedLimit,
       search,
       parsedPage,
-      filter,
-      order
+      filter
     );
 
     return res.status(200).send({ status: "Success", payload: product });
