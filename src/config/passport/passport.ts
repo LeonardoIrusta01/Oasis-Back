@@ -55,15 +55,13 @@ passport.use("google", new GoogleStrategy({
   tokenURL: "https://oauth2.googleapis.com/token",
 },
   async function (_accessToken: any, _refreshToken: any, profile: any, done: any) {
-    
-      const user = await userDao.getByEmail(profile.emails[0].value)
-    if(user){
-      console.log("Hola");
+
+    const user = await userDao.getByEmail(profile.emails[0].value)
+    if (user) {
       done(null, profile)
-      
-    } else{
-      console.log("Hola 2");
-      await userDao.createUser({firstName: profile.name.givenName, lastName: profile.name.familyName, email: profile.emails[0].value, admin: false})
+
+    } else {
+      await userDao.createUser({ firstName: profile.name.givenName, lastName: profile.name.familyName, email: profile.emails[0].value, admin: false })
       done(null, profile)
     }
   }
