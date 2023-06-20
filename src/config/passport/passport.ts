@@ -48,8 +48,8 @@ passport.use("local",
 );
 
 passport.use("google", new GoogleStrategy({
-  clientID: "612958931413-l8aik4vp3me4rr428kgqghakugdoadl2.apps.googleusercontent.com",
-  clientSecret: "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",
+  clientID: CLIENT_ID || "",
+  clientSecret: CLIENT_SECRET || "",
   callbackURL: "http://localhost:3001/api/auth/google",
   authorizationURL: "https://accounts.google.com/o/oauth2/auth",
   tokenURL: "https://oauth2.googleapis.com/token",
