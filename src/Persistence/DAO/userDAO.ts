@@ -36,9 +36,15 @@ export class UserDao {
     async createUser(body: MapUser) {
         try {
             const { firstName = "", lastName = "", email = "", cellphone = 0, admin = false, dni = 0, password = "" } = body
-            const hashedPassword = bcrypt.hashSync(password, 16)
-            const user: User | null = await User.create({firstName, lastName, email, cellphone, admin, dni, password: hashedPassword})
-            return user
+            if(password){
+                const hashedPassword = bcrypt.hashSync(password, 16)
+                const user: User | null = await User.create({firstName, lastName, email, cellphone, admin, dni, password: hashedPassword})
+                return user
+            } else {
+                const user: User | null = await User.create({firstName, lastName, email, cellphone, admin, dni})
+                return user
+
+            }
         } catch (error:any) {
             return error.message
         }
