@@ -2,6 +2,7 @@ import { Category } from "../../Models";
 import { Product } from "../../Models/product";
 import { MapProduct } from "../DTO/productDTO";
 import { Op } from "sequelize";
+import XLSX from "xlsx";
 
 export class ProductDao {
   constructor() {}
@@ -164,6 +165,26 @@ export class ProductDao {
       return product;
     } catch (error: any) {
       return error.message;
+    }
+  }
+
+  async loadList(list: Express.Multer.File) {
+    try {
+      if (await Product.count()) {
+        await Product.destroy({ where: {} });
+      }
+
+      const dataList = XLSX.readFile(list.path);
+
+      const nameList = dataList.SheetNames;
+      if (dataList) {
+        const products: any[] = XLSX.utils.sheet_to_json(
+          dataList.Sheets[nameList[0]]
+        );
+        await Product.bulkCreate(products);
+      }
+    } catch (error: any) {
+      return error;
     }
   }
 
