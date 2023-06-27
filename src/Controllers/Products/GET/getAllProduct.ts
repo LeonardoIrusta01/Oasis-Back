@@ -7,7 +7,7 @@ const productDao = new ProductDao();
 
 export const getAllProduct: RequestHandler = async (req, res, next) => {
   try {
-    const { limit, search, page, filter, order } = req.query;
+    const { limit, search, page, filter } = req.query;
     const parsedLimit: number = Number(limit);
     const parsedPage: number = Number(page);
 

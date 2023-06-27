@@ -5,7 +5,9 @@ import {
   getProductById,
   createProduct,
   updateProduct,
+  loadList,
 } from "../Controllers/Products/productController";
+import { upload } from "../utils/multer";
 
 const router: Router = Router();
 
@@ -186,6 +188,7 @@ router.get("/:id", getProductById);
  */
 router.post("/", createProduct);
 
+router.post("/loadList", upload.single("list"), loadList);
 /**
  * @swagger
  * /api/products:
