@@ -91,7 +91,7 @@ const router: Router = Router();
  *      example: 1
  *      schema:
  *        type: integer
- *    
+ *
  *    filterQuery:
  *      name: filter
  *      in: query
