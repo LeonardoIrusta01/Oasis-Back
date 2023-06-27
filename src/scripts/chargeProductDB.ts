@@ -44,7 +44,6 @@ export const generate = async () => {
   };
 
   for (let i = 0; i < nombres.length; i++) {
-    console.log(nombres[i]);
     const category = {
       name: nombres[i],
       image: faker.image.url(),
