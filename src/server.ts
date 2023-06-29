@@ -3,13 +3,10 @@ import "dotenv/config";
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
-import session from 'express-session';
-import passport from "passport";
 import { connection } from "./Persistence/db";
 import swaggerJsDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
 import { options } from "./utils/swagger";
-import { sessionStore } from "./config/passport/passport";
 
 /* Import Configurations */
 import Index from "./Routes/index";
@@ -36,20 +33,6 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next();
 });
-
-app.use(
-  session({
-    secret: 'secreto',
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 180 * 60 * 1000,
-    },
-    store: sessionStore
-  })
-);
-app.use(passport.initialize());
-app.use(passport.session());
 
 /* Routes */
 app.use("/api", Index);
