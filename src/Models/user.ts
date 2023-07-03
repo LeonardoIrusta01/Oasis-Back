@@ -4,7 +4,7 @@ import { Table, Model, Column, DataType } from 'sequelize-typescript'
     tableName: 'users'
 })
 
-export class User extends Model{
+export class User extends Model {
     @Column({
         type: DataType.STRING
     })
@@ -24,11 +24,6 @@ export class User extends Model{
         type: DataType.BIGINT
     })
     cellphone!: number
-
-    @Column({
-        type: DataType.STRING
-    })
-    password!: string
 
     @Column({
         type: DataType.BOOLEAN
