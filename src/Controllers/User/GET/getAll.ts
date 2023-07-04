@@ -5,9 +5,15 @@ const userDao = new UserDao();
 
 export const getAll: RequestHandler = async (req, res, next) => {
   try {
-    const allUsers = await userDao.getAll();
-    res.status(200).json({ status: "Success", payload: allUsers });
+    const { email } = req.body
+    if (email) {
+      const user = await userDao.getByEmail(email)
+      return res.status(200).json({ status: "Success", payload: user });
+    } else {
+      const allUsers = await userDao.getAll();
+      return res.status(200).json({ status: "Success", payload: allUsers });
+    }
   } catch (error: any) {
-    res.status(400).json({ status: "Rejected", payload: error.message });
+    return res.status(400).json({ status: "Rejected", payload: error.message });
   }
 };

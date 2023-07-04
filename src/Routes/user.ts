@@ -3,7 +3,7 @@ import { Router } from "express";
 import {
   getAll,
   getById,
-  updateUser,
+  updateUser
 } from "../Controllers/User/userController";
 
 const router = Router();

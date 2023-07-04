@@ -21,6 +21,11 @@ export class User extends Model {
     email!: string
 
     @Column({
+        type: DataType.STRING
+    })
+    image!: string
+
+    @Column({
         type: DataType.BIGINT
     })
     cellphone!: number
