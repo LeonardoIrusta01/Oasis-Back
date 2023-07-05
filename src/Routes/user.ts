@@ -3,8 +3,9 @@ import { Router } from "express";
 import {
   getAll,
   getById,
-  updateUser,
+  updateUser
 } from "../Controllers/User/userController";
+import { register } from "../Controllers/User/POST/register";
 
 const router = Router();
 
@@ -159,6 +160,9 @@ router.get("/:id", getById);
  *            schema:
  *              $ref: '#/components/schemas/UserNotFound'
  */
+
+router.post("/", register)
+
 router.put("/:id", updateUser);
 
 export default router;
