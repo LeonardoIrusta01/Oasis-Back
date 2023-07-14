@@ -9,7 +9,7 @@ const router: Router = Router()
 
 router.get("/:idCart", getItemCart)
 
-router.post("/", addProduct)
+router.post("/:idCart/product/:idProduct", addProduct)
 
 router.put("/:idCart/product/:idProduct", updateProductCart)
 

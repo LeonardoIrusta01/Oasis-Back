@@ -6,9 +6,10 @@ const cartDao = new CartDao();
 
 export const addProduct: RequestHandler = async (req, res, next) => {
     try {
-        const { idCart, idProduct, quantity } = req.body
+        const { quantity } = req.body
+        const { idCart, idProduct } = req.params
 
-        const cart = await cartDao.addProduct(idCart, idProduct, quantity);
+        const cart = await cartDao.addProduct(Number(idCart), Number(idProduct), quantity);
         if (typeof cart === "string") {
             return res.status(400).send({ status: "Rejected", payload: cart })
         }
