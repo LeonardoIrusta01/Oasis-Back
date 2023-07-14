@@ -1,4 +1,6 @@
-import { User } from "../../Models";
+import { Product, User } from "../../Models";
+import { Cart } from "../../Models/cart";
+import { CartItem } from "../../Models/cartItem";
 import { MapUser } from "../DTO/userDTO";
 
 export class UserDao {
@@ -16,7 +18,10 @@ export class UserDao {
     async getById(id: string) {
         try {
             const user: User | null = await User.findByPk(id)
-            return user?.dataValues
+            if (user) {
+                return user.dataValues
+            }
+            return `User doesn't exist`
         } catch (error: any) {
             return error.message
         }
@@ -24,7 +29,7 @@ export class UserDao {
 
     async getByEmail(email: string) {
         try {
-            const user: User | null = await User.findOne({ where: { email } })
+            const user: User | null = await User.findOne({ where: { email }, include: Cart })
             return user?.dataValues
         } catch (error: any) {
             return error.message

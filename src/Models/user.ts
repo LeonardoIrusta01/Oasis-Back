@@ -39,4 +39,8 @@ export class User extends Model {
         type: DataType.BIGINT
     })
     dni!: number
+    @Column({
+        type: DataType.INTEGER,
+    })
+    idCart!: number;
 }
