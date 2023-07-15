@@ -1,11 +1,11 @@
 import { Table, Model, Column, DataType } from "sequelize-typescript";
 
 @Table({
-    tableName: "carts",
+    tableName: "cartItems",
 })
-export class Cart extends Model {
+export class CartItem extends Model {
     @Column({
         type: DataType.INTEGER,
     })
-    total!: number
+    quantity!: number
 }

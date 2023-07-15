@@ -5,7 +5,7 @@ import { Op } from "sequelize";
 import XLSX from "xlsx";
 
 export class ProductDao {
-  constructor() {}
+  constructor() { }
 
   async getProduct(
     limit?: number,
@@ -117,7 +117,7 @@ export class ProductDao {
     }
   }
 
-  async getProductById(id: string) {
+  async getProductById(id: number) {
     try {
       const getProductById: Product | null = await Product.findByPk(id, {
         attributes: [

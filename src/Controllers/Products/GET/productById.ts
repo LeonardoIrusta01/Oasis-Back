@@ -9,7 +9,7 @@ export const getProductById: RequestHandler = async (req, res, next) => {
   try {
     const { id } = req.params;
     if (id) {
-      const product: Product | null = await productDao.getProductById(id);
+      const product: Product | null = await productDao.getProductById(Number(id));
 
       return res.status(200).send({ status: "Success", payload: product });
     }
