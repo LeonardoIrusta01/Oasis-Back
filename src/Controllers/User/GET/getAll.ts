@@ -5,9 +5,9 @@ const userDao = new UserDao();
 
 export const getAll: RequestHandler = async (req, res, next) => {
   try {
-    const { email } = req.body
+    const { email } = req.query
     if (email) {
-      const user = await userDao.getByEmail(email)
+      const user = await userDao.getByEmail(email.toString())
       return res.status(200).json({ status: "Success", payload: user });
     } else {
       const allUsers = await userDao.getAll();
