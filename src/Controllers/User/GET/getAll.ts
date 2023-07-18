@@ -8,6 +8,7 @@ export const getAll: RequestHandler = async (req, res, next) => {
     const { email } = req.query
     if (email) {
       const user = await userDao.getByEmail(email.toString())
+      if (typeof user === "string") return res.status(404).json({ status: "Rejected", payload: user });
       return res.status(200).json({ status: "Success", payload: user });
     } else {
       const allUsers = await userDao.getAll();

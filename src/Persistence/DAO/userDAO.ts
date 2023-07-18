@@ -30,6 +30,8 @@ export class UserDao {
     async getByEmail(email: string) {
         try {
             const user: User | null = await User.findOne({ where: { email }, include: Cart })
+            if (!user) throw new Error("User is not in database")
+
             return user?.dataValues
         } catch (error: any) {
             return error.message
