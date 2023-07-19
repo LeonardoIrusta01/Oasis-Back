@@ -5,4 +5,5 @@ export interface MapUser {
   cellphone?: number;
   admin: boolean;
   dni?: number;
+  image?: string
 }

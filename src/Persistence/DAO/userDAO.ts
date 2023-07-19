@@ -40,8 +40,8 @@ export class UserDao {
 
     async createUser(body: MapUser) {
         try {
-            const { firstName = "", lastName = "", email = "", cellphone = 0, admin = false, dni = 0 } = body
-            const user: User | null = await User.create({ firstName, lastName, email, cellphone, admin, dni })
+            const { firstName = "", lastName = "", email = "", cellphone = 0, admin = false, dni = 0, image = "" } = body
+            const user: User | null = await User.create({ firstName, lastName, email, cellphone, admin, dni, image })
             return user
         } catch (error: any) {
             return error.message
