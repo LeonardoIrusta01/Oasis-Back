@@ -5,7 +5,7 @@ import { Op } from "sequelize";
 import XLSX from "xlsx";
 
 export class ProductDao {
-  constructor() { }
+  constructor() {}
 
   async getProduct(
     limit?: number,
@@ -148,7 +148,7 @@ export class ProductDao {
         discount,
         active,
         stock,
-        categoryId,
+        idCategory,
       } = body;
 
       const product = await Product.create({
@@ -159,7 +159,7 @@ export class ProductDao {
         discount,
         active,
         stock,
-        idCategory: categoryId,
+        idCategory,
       });
 
       return product;
@@ -190,30 +190,7 @@ export class ProductDao {
 
   async updateProduct(id: string, body: MapProduct) {
     try {
-      const {
-        name,
-        price,
-        image,
-        description,
-        discount,
-        active,
-        stock,
-        categoryId,
-      } = body;
-
-      const product = await Product.update(
-        {
-          name,
-          price,
-          image,
-          description,
-          discount,
-          active,
-          stock,
-          idCategory: categoryId,
-        },
-        { where: { id } }
-      );
+      const product = await Product.update(body, { where: { id } });
 
       return product;
     } catch (error: any) {
