@@ -6,5 +6,5 @@ export interface MapProduct {
   discount: boolean;
   active: boolean;
   stock: boolean;
-  categoryId: number;
+  idCategory: number;
 }
