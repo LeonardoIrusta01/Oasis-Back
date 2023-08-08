@@ -19,9 +19,12 @@ export class ProductDao {
       }
 
       if (!search && !limit && !page && !filter) {
+        const page = 1;
+        const limit = 10;
+        const offset = (page - 1) * limit;
         const getProduct: Product[] = await Product.findAll({
-          offset: 0,
-          limit: 10,
+          offset: offset,
+          limit: limit,
           order: [["name", "ASC"]],
           attributes: [
             "id",
@@ -36,7 +39,10 @@ export class ProductDao {
           include: [Category],
         });
 
-        return getProduct;
+        const totalProducts = await Product.count();
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        return { product: getProduct, totalPages };
       }
 
       if (filter) {
@@ -88,7 +94,6 @@ export class ProductDao {
             },
           },
         });
-
         return getProduct;
       }
 
@@ -110,7 +115,10 @@ export class ProductDao {
           include: [Category],
         });
 
-        return getProduct;
+        const totalProducts = await Product.count();
+        const totalPages = Math.ceil(totalProducts / limit);
+
+        return { product: getProduct, page, totalPages };
       }
     } catch (error: any) {
       throw new Error(error.message);

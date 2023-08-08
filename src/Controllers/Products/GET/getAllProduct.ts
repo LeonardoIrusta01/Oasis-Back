@@ -11,14 +11,15 @@ export const getAllProduct: RequestHandler = async (req, res, next) => {
     const parsedLimit: number = Number(limit);
     const parsedPage: number = Number(page);
 
-    const product: Product[] | undefined = await productDao.getProduct(
+    const product: { product: Product[]; page: number; totalPages: number }
+      | any = await productDao.getProduct(
       parsedLimit,
       search,
       parsedPage,
       filter
     );
 
-    return res.status(200).send({ status: "Success", payload: product });
+    return res.status(200).send({ status: "Success", payload:  product  });
   } catch (error: any) {
     return res.status(400).send({ status: "Rejected", payload: error.message });
   }
